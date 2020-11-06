@@ -69,7 +69,7 @@ function insertContribution(){
         
         /*Kontrola ci nahraty subor je v pozadovanom formate*/
         if(in_array($file_ext,$expensions)=== false){
-            $errors[]='<div class="alert alert-danger">Tento typ súuboru nie je podporovaný. Zvoľte prosím niektorý z formátov JPEG, JPG, PNG, alebo GIF.</div>';
+            $errors[]='<div class="alert alert-danger">Tento typ súboru nie je podporovaný. Zvoľte prosím niektorý z formátov JPEG, JPG, PNG, alebo GIF.</div>';
         }
       
         /*Kontrola velkosti obrazku max 30MB*/
@@ -87,7 +87,7 @@ function insertContribution(){
                 }
             }
             
-            $query_insert="INSERT INTO slides(path,fromUser,fromDate,toDate,uploadDate,lastUpdate)                          VALUES('".$target_file."','".$autor."','".$from."',".$to.",CURDATE(),CURDATE())";
+           $query_insert="INSERT INTO slides(path,fromUser,fromDate,toDate,uploadDate)                          VALUES('".$target_file."','".$autor."','".$from."',".$to.",CURDATE())";
 	        $apply_insert=mysqli_query($connect,$query_insert);
     
             if($apply_insert){

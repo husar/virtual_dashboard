@@ -24,7 +24,8 @@
                                                     <div class="col-md-2">
                                                         Autor:
                                                         <input class="form-control" type="text"  name="authorName" placeholder="Meno" value="<?php echo $_GET['authorName']; ?>">	
-                                                        <input class="form-control" type="text"  name="authorSurname" placeholder="Priezvisko" value="<?php echo $_GET['authorSurname']; ?>">	
+                                                        <input class="form-control" type="text"  name="authorSurname" placeholder="Priezvisko" value="<?php echo $_GET['authorSurname']; ?>">
+                                                        <input class="form-control" type="text"  name="osobne_cislo" placeholder="Osobné číslo" value="<?php echo $_GET['osobne_cislo']; ?>">	
 													</div>
                                                    
                                                     <div class="col-md-2">
@@ -39,15 +40,21 @@
                                                     </div>
                                                     
                                                     <div class="col-md-2">
-                                                    Zoradiť podľahahahah:
-                                                    <select name="zoradenie" class="form-control">
+                                                    Zoradiť podľa:
+                                                    <select name="sorting" class="form-control">
                                                         
-                                                        <option value="osobne_cislo" <?php echo ($zoradenie == "osobne_cislo")? 'selected':'' ?>>Osobné číslo</option>
-                                                        <option value="menoBD" <?php echo ($zoradenie == "menoBD")? 'selected':'' ?>>Meno</option>
-                                                        <option value="priezviskoBD" <?php echo ($zoradenie == "priezviskoBD")? 'selected':'' ?>>Priezvisko</option>
-                                                        <option value="datum_pridania" <?php echo ($zoradenie == "datum_pridania")? 'selected':'' ?>>Dátum pridania zamestnanca</option>
+                                                        <option value="">Zoradiť podľa</option>
+                                                        <option value="ID" <?php echo ($_GET['sorting'] == "ID")? 'selected':'' ?>>ID Príspevku</option>
+                                                        <option value="uploadDate" <?php echo ($_GET['sorting'] == "uploadDate")? 'selected':'' ?>>Dátum pridania príspevku</option>
                                                     </select>
                                                     </div>
+                                                    
+                                                    <div class="col-md-2">
+                                                    <br>
+													    <input type="radio" name="srt" value="vzostupne" <?php echo ($_GET['srt'] != "zostupne")? 'checked':''?>> Vzostupne
+                                                        <input type="radio" name="srt" value="zostupne" <?php echo ($_GET['srt'] == "zostupne")? 'checked':''?>> Zostupne
+                   
+													</div>
                                                     
                                                 </div>                                              
                                             </div>
@@ -73,7 +80,7 @@
                                     
                                     <?php 
                                              
-                                        if(!empty($_GET['authorName']) || !empty($_GET['authorSurname']) || !empty($_GET['status'])){
+                                        if(!empty($_GET['authorName']) || !empty($_GET['authorSurname']) || !empty($_GET['status']) || !empty($_GET['sorting']) || !empty($_GET['osobne_cislo'])){
                                             
                                             $authorName = mysqli_real_escape_string($connect,$_GET['authorName']); 
                                             $authorSurname = mysqli_real_escape_string($connect,$_GET['authorSurname']); 
@@ -146,11 +153,24 @@
                                                     $conditions[]="(toDate >= CURDATE() OR toDate IS NULL)";
                                                 }
                                             
+                                                if(!empty($_GET['osobne_cislo'])){
+                                                    $conditions[]="fromUser LIKE '%".$_GET['osobne_cislo']."%'";
+                                                }
+                                            
                                                 $sql=$searchQuery;    
                                             
                                                 if(count($conditions)>0){
                                                     $sql.="WHERE ".implode(' AND ',$conditions);    
                                                 }
+                                            
+                                                if(!empty($_GET['sorting'])){
+                                                    $sql.="ORDER BY ".$_GET['sorting'];
+                                                }
+                                            
+                                                if($_GET['srt']=='zostupne'){
+                                                    $sql.=" DESC";
+                                                }
+                                                
                                                 echo $sql;
                                                 
                                             

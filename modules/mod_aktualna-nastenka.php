@@ -27,7 +27,7 @@
                                             $numberOfContribution=1;
                                             ?>
                                             <div class="container">
-                                              <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="10000">
+                                              <div id="myCarousel" class="carousel slide" data-ride="carousel" >
                                                 <!-- Indicators -->
                                                 <ol class="carousel-indicators">
                                                   <li data-target="#myCarousel" data-slide-to="0" class="active" style="zoom: 200%; background:black;"></li>
@@ -38,17 +38,17 @@
                                                 </ol>
 
                                                     <!-- Wrapper for slides -->
-                                                <div class="carousel-inner">
+                                                <div class="carousel-inner" >
                                                  <?php 
                                                     $query_zaznamy="SELECT * FROM slides WHERE (fromDate IS NULL AND toDate IS NULL) OR (fromDate<=CURDATE() AND toDate IS NULL) OR (fromDate IS NULL AND toDate>=CURDATE()) OR (fromDate<=CURDATE() AND toDate>=CURDATE())";
 								                    $apply_zaznamy=mysqli_query($connect,$query_zaznamy); 
                                                     $result_zaznamy=mysqli_fetch_array($apply_zaznamy);?>
-                                                        <div class="item active">
-                                                            <img src="<?php echo $result_zaznamy['path']; ?>" style="width:70%; margin:auto;">
+                                                        <div class="item active" data-interval="10000">
+                                                            <img src="<?php echo $result_zaznamy['path']; ?>" style="width:1920px; height:1080px; margin:auto;">
                                                         </div>
                                                     <?php while($result_zaznamy=mysqli_fetch_array($apply_zaznamy)){ ?>
                                                   <div class="item">
-                                                    <img src="<?php echo $result_zaznamy['path']; ?>" style="width:70%; margin:auto;">
+                                                    <img src="<?php echo $result_zaznamy['path']; ?>" style="width:1920px; height:1080px; margin:auto;">
                                                   </div>
                                                     <?php } ?>
       
