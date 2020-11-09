@@ -118,6 +118,7 @@
 												        <th>Pridal</th>
 												        <th>Začiatok vysielania</th>
 												        <th>Koniec vysielania</th>
+                                                        <th>Doba trvania (v sekundách)</th>
 								                        <th>Dátum pridania</th>
                                                         <th>Stav vysielania</th>
 														  
@@ -171,8 +172,7 @@
                                                     $sql.=" DESC";
                                                 }
                                                 
-                                                echo $sql;
-                                                
+                                                                                            
                                             
 												$apply_zaznamy=mysqli_query($connect,$sql);
 												while($result_zaznamy=mysqli_fetch_array($apply_zaznamy)){
@@ -199,7 +199,7 @@
                                                     	        <?php }else{ echo $result_zaznamy['fromDate'];} ?>
                                                     	    </td>
 													    </form>
-													    
+													    <td> <?php echo ($result_zaznamy['duration'])/1000 ?></td>
                                                         <td> <?php echo $result_zaznamy['uploadDate'] ?> </td>
                                                         <td> <?php 
                                                                 if($result_zaznamy['toDate']<date("Y-m-d") && $result_zaznamy['toDate']!=null){
@@ -250,6 +250,7 @@
 												        <th>Pridal</th>
 												        <th>Začiatok vysielania</th>
 												        <th>Koniec vysielania</th>
+                                                        <th>Doba trvania (v sekundách)</th>
 								                        <th>Dátum pridania</th>
                                                         <th>Stav vysielania</th>
 														  
@@ -282,8 +283,22 @@
                                                     	            <input type="date" name="toDate" value="<?php echo $result_zaznamy['toDate']; ?>" style="border-style: none;" onchange='this.form.submit()' data-toggle="modal" data-target="#update">
                                                     	        <?php }else{ echo $result_zaznamy['fromDate'];} ?>
                                                     	    </td>
-													    </form>
 													    
+													    
+                                                        <td> 
+                                                        <?php if($user->isAdmin() || $_SESSION['user_id']==$result_zaznamy['fromUser']) {?>
+                                                        <select name="duration" class="form-control" style="border-style: none;" onchange='this.form.submit()' data-toggle="modal" data-target="#updateModal">
+                                                           <option value=""><?php echo $result_zaznamy['duration']/1000 ?></option>
+                                                            <?php 
+                                                                $seconds=5;
+                                                                for($seconds;$seconds<61;$seconds+=5){
+                                                            ?>
+                                                            <option value="<?php echo $seconds; ?>" ><?php echo $seconds?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                        <?php }else{ echo $result_zaznamy['duration'];} ?>
+                                                        </td>
+                                                        </form>
                                                         <td> <?php echo $result_zaznamy['uploadDate'] ?> </td>
                                                         <td> <?php 
                                                                 if($result_zaznamy['toDate']<date("Y-m-d") && $result_zaznamy['toDate']!=null){
@@ -347,7 +362,7 @@
   </div>
 </div>
 <?php } ?>
- <?php if(isset($_POST['fromDate']) || isset($_POST['toDate'])){ ?>
+ <?php if(isset($_POST['fromDate']) || isset($_POST['toDate']) || isset($_POST['duration'])){ ?>
  <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -364,6 +379,7 @@
                     <input type="hidden" name="id_prispevku" value="<?php echo $_POST['id_prispevku'] ?>">
                     <input type="hidden" name="fromDate" value="<?php echo $_POST['fromDate'] ?>">
                     <input type="hidden" name="toDate" value="<?php echo $_POST['toDate'] ?>">
+                    <input type="hidden" name="duration" value="<?php echo $_POST['duration'] ?>">
                     <button type="submit" name="cancel" class="btn btn-secondary" formaction="index.php?modul=spravovat-prispevky/zaznamy">Zrušiť</button>
                     <button type="submit" name="update" class="btn btn-primary" formaction="index.php?modul=spravovat-prispevky/zaznamy">Upraviť</button>
                 </form>

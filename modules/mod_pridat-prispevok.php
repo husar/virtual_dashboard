@@ -47,6 +47,22 @@
 														
                                                 </div>
                                                 </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-3 control-label">Trvanie vysielania v sekundách (max: 60s)</label>
+                                                    <div class="col-md-2">
+													
+													<select name="duration" class="form-control">
+                                                            <?php 
+                                                                $seconds=5;
+                                                                for($seconds;$seconds<61;$seconds+=5){
+                                                            ?>
+                                                            <option value="<?php echo $seconds ?>" <?php echo ($_POST['duration'] == $seconds)? 'selected':'' ?>><?php echo $seconds ?>s</option>
+                                                            <?php } ?>
+                                                    </select>
+                                                        
+													</div>
+														
+                                                </div>
 												<div class="form-group">
                                                     <label class="col-md-3 control-label">Vyber súbor (JPG, JPEG, PNG, GIF)</label>
                                                     <div class="col-md-9">

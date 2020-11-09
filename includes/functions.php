@@ -16,12 +16,19 @@ function updateContribution(){
             unset($_POST['toDate']);
         }
         
+        if(isset($_POST['duration'])){
+            $query_zaznamy="UPDATE slides SET duration='".($_POST['duration']*1000)."' WHERE ID='".$_POST['id_prispevku']."'";       
+            $apply_zaznamy=mysqli_query($connect,$query_zaznamy);
+            unset($_POST['duration']);
+        }
+        
     }
     
     if(isset($_POST['cancel'])){
     
             unset($_POST['fromDate']);
-            unset($_POST['toDate']);    
+            unset($_POST['toDate']);   
+            unset($_POST['duration']); 
         
     }
 }
@@ -87,7 +94,7 @@ function insertContribution(){
                 }
             }
             
-           $query_insert="INSERT INTO slides(path,fromUser,fromDate,toDate,uploadDate)                          VALUES('".$target_file."','".$autor."','".$from."',".$to.",CURDATE())";
+           $query_insert="INSERT INTO slides(path,fromUser,fromDate,toDate,uploadDate,duration)                          VALUES('".$target_file."','".$autor."','".$from."',".$to.",CURDATE(),'".($_POST['duration']*1000)."')";
 	        $apply_insert=mysqli_query($connect,$query_insert);
     
             if($apply_insert){
