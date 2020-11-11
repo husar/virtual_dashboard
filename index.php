@@ -221,10 +221,14 @@ if(empty($modul)){$modul="mod_404.php";}
                             <li class="heading">
                                 <h3 class="uppercase">Pridanie záznamu</h3>
                             </li>
-                           
+                               <li class="nav-item  ">
+                                        <a href="?modul=ako-vytvorit-prispevok" class="nav-link ">
+                                            <i class="fa fa-question-circle" aria-hidden="true"></i><span class="title">Ako vytvoriť príspevok</span>
+                                        </a>
+                                   </li>
 								<li class="nav-item  ">
                                         <a href="?modul=pridat-prispevok" class="nav-link ">
-                                            <span class="title">Pridať príspevok</span>
+                                            <i class="fa fa-plus" aria-hidden="true"></i><span class="title">Pridať príspevok</span>
                                         </a>
                                    </li>
 								   
@@ -237,12 +241,12 @@ if(empty($modul)){$modul="mod_404.php";}
                             </li>
 							<li class="nav-item  ">
                                         <a href="?modul=aktualna-nastenka/zaznamy" class="nav-link ">
-                                            <span class="title">Aktúalna nástenka</span>
+                                            <i class="fa fa-desktop" aria-hidden="true"></i><span class="title">Aktúalna nástenka</span>
                                         </a>
                                    </li>
 								   <li class="nav-item  ">
                                         <a href="?modul=spravovat-prispevky/zaznamy" class="nav-link ">
-                                            <span class="title">Spravovať príspevky</span>
+                                            <i class="fa fa-tasks" aria-hidden="true"></i><span class="title">Spravovať príspevky</span>
                                         </a>
                                    </li>
 								   

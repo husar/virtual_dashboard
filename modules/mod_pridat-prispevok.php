@@ -31,7 +31,7 @@
                                                     <label class="col-md-3 control-label">Začať vysielať od</label>
                                                     <div class="col-md-9">
 													
-													<input class="form-control" size="16" type="date" name="dateFrom" min="<?php echo date('Y-m-d'); ?>" value="<?php echo $_POST['dateFrom']; ?>">
+													<input class="form-control" size="16" type="date" name="dateFrom" min="<?php echo date('Y-m-d'); ?>" value="<?php echo $_POST['dateFrom']; ?>" max="<?php echo $_POST['toDate']; ?>">
                                                         
 													</div>
 														
@@ -41,7 +41,7 @@
                                                     <label class="col-md-3 control-label">Ukončiť vysielanie</label>
                                                     <div class="col-md-9">
 													
-													<input class="form-control" size="16" type="date" name="toDate" min="<?php echo date('Y-m-d'); ?>" value="<?php echo $_POST['toDate']; ?>">
+													<input class="form-control" size="16" type="date" name="toDate" min="<?php echo date('Y-m-d'); ?>" value="<?php echo $_POST['toDate']; ?>" min="<?php echo $_POST['fromDate'] ?>">
                                                         
 													</div>
 														

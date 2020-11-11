@@ -83,6 +83,10 @@ function insertContribution(){
         if($file_size > 30097152){
             $errors[]= '<div class="alert alert-danger">Obrázok je príliš veľký. Maximálna veľkosť obrázku je 30MB.</div>';
         }
+        
+        if((!empty($_POST['dateFrom']) && !empty($_POST['toDate'])) && ($_POST['dateFrom']>$_POST['toDate'])){
+            $errors[]= '<div class="alert alert-danger">Dátum začiatku vysielania nesmie byť vyšší ako dátum ukončenia vysielania.</div>';
+        }
         /*Ak nenastala ziadna chyba nahraju sa data do databazy a uploadne sa subor*/
         if(empty($errors)==true){
             if(isset($_POST['period'])){

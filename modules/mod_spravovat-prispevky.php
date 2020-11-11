@@ -5,6 +5,28 @@
     deleteContribution();
     updateContribution();
     
+    if(isset($_POST['download'])){
+        
+        $query="SELECT path FROM slides WHERE ID = '".$_POST['id_prispevku']."'";
+        $apply=mysqli_query($connect,$query);
+        $result=mysqli_fetch_array($apply);
+        $file=$result['path'];?>
+        
+
+
+        
+        <!--/*if (file_exists($file)) {
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename="'.basename($file).'"');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($file));
+            readfile($file);
+            exit;
+        }*/-->
+   <?php }
 
 
 ?>
@@ -198,8 +220,21 @@
                                                     	            <input type="date" name="toDate" value="<?php echo $result_zaznamy['toDate']; ?>" style="border-style: none;" onchange='this.form.submit()' data-toggle="modal" data-target="#update">
                                                     	        <?php }else{ echo $result_zaznamy['fromDate'];} ?>
                                                     	    </td>
-													    </form>
-													    <td> <?php echo ($result_zaznamy['duration'])/1000 ?></td>
+													    
+													    <td> 
+                                                        <?php if($user->isAdmin() || $_SESSION['user_id']==$result_zaznamy['fromUser']) {?>
+                                                        <select name="duration" class="form-control" style="border-style: none;" onchange='this.form.submit()' data-toggle="modal" data-target="#updateModal">
+                                                           <option value="<?php echo $result_zaznamy['duration']/1000 ?>"><?php echo $result_zaznamy['duration']/1000 ?></option>
+                                                            <?php 
+                                                                $seconds=5;
+                                                                for($seconds;$seconds<61;$seconds+=5){
+                                                            ?>
+                                                            <option value="<?php echo $seconds; ?>" ><?php echo $seconds?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                        <?php }else{ echo $result_zaznamy['duration'];} ?>
+                                                        </td>
+                                                        </form>
                                                         <td> <?php echo $result_zaznamy['uploadDate'] ?> </td>
                                                         <td> <?php 
                                                                 if($result_zaznamy['toDate']<date("Y-m-d") && $result_zaznamy['toDate']!=null){
@@ -217,10 +252,19 @@
                                                             <form method="post"> 
                                                                 
                                                                 <input type="hidden" name="id_prispevku" value="<?php echo $result_zaznamy['ID'] ?>">
-                                                                <button type="button" class="btn"  title="Vymazať príspevok" data-toggle="modal" data-target="#deleteModal" name="forDelete"   onclick="location.href='index.php?modul=spravovat-prispevky/zaznamy&id_prispevku=<?php echo $result_zaznamy['ID'] ?>';" ><i class="fa fa-trash"></i></button>
+                                                                <a type="button" class="btn"  title="Vymazať príspevok" data-toggle="modal" data-target="#deleteModal" name="forDelete"   onclick="location.href='index.php?modul=spravovat-prispevky/zaznamy&id_prispevku=<?php echo $result_zaznamy['ID'] ?>';" ><i class="fa fa-trash"></i></a>
                                                                 
-                                                            </form>
-                                                            <?php } ?>
+                                                            
+                                                            <?php } 
+                                                            $query="SELECT path FROM slides WHERE ID = '".$result_zaznamy['ID']."'";
+                                                            $apply=mysqli_query($connect,$query);
+                                                            $result=mysqli_fetch_array($apply);
+                                                            $file=$result['path'];?>
+                                                              
+                                                             
+                                                                    <a href="<?php echo $file; ?>" download class="btn" title="Download"><i class="fa fa-download" aria-hidden="true"></i></a>
+                                                                    <a href="<?php echo $file; ?>" class="btn" title="Náhľad" target="_blank"><i class="fa fa-desktop" aria-hidden="true"></i></a>
+                                                                </form>
                                                         </td>
                                                        
                                                     </tr>
@@ -275,12 +319,12 @@
 														    <input type="hidden" name="id_prispevku" value="<?php echo $result_zaznamy['ID'] ?>">
 														    <td>
                                                                <?php if($user->isAdmin() || $_SESSION['user_id']==$result_zaznamy['fromUser']) {?>
-                                                                   <input type="date" name="fromDate" value="<?php echo $result_zaznamy['fromDate']; ?>" style="border-style: none;" onchange='this.form.submit()' data-toggle="modal" data-target="#updateModal">
+                                                                   <input type="date" name="fromDate" value="<?php echo $result_zaznamy['fromDate']; ?>" style="border-style: none;" onchange='this.form.submit()' data-toggle="modal" data-target="#updateModal" min="<?php echo date('Y-m-d'); ?>" max="<?php echo $result_zaznamy['toDate'] ?>">
                                                                <?php }else{ echo $result_zaznamy['fromDate'];} ?>
                                                             </td>
                                                     	    <td>
                                                                 <?php if($user->isAdmin() || $_SESSION['user_id']==$result_zaznamy['fromUser']) {?>
-                                                    	            <input type="date" name="toDate" value="<?php echo $result_zaznamy['toDate']; ?>" style="border-style: none;" onchange='this.form.submit()' data-toggle="modal" data-target="#update">
+                                                    	            <input type="date" name="toDate" value="<?php echo $result_zaznamy['toDate']; ?>" style="border-style: none;" onchange='this.form.submit()' data-toggle="modal" data-target="#update" min="<?php echo $result_zaznamy['fromDate'] ?>">
                                                     	        <?php }else{ echo $result_zaznamy['fromDate'];} ?>
                                                     	    </td>
 													    
@@ -288,7 +332,7 @@
                                                         <td> 
                                                         <?php if($user->isAdmin() || $_SESSION['user_id']==$result_zaznamy['fromUser']) {?>
                                                         <select name="duration" class="form-control" style="border-style: none;" onchange='this.form.submit()' data-toggle="modal" data-target="#updateModal">
-                                                           <option value=""><?php echo $result_zaznamy['duration']/1000 ?></option>
+                                                           <option value="<?php echo $result_zaznamy['duration']/1000 ?>"><?php echo $result_zaznamy['duration']/1000 ?></option>
                                                             <?php 
                                                                 $seconds=5;
                                                                 for($seconds;$seconds<61;$seconds+=5){
@@ -312,14 +356,20 @@
                                                                     Aktuálne </i> ';
                                                                 }
                                                             ?></td>
-                                                        <td><?php if($user->isAdmin() || $_SESSION['user_id']==$result_zaznamy['fromUser']){ ?>
-                                                            <form method="post"> 
-                                                                
-                                                                <input type="hidden" name="id_prispevku" value="<?php echo $result_zaznamy['ID'] ?>">
-                                                                <button type="button" class="btn"  title="Vymazať príspevok" data-toggle="modal" data-target="#deleteModal" name="forDelete"   onclick="location.href='index.php?modul=spravovat-prispevky/zaznamy&id_prispevku=<?php echo $result_zaznamy['ID'] ?>';" ><i class="fa fa-trash"></i></button>
-                                                                
+                                                        <td>
+                                                          <form method="post"> 
+                                                              <input type="hidden" name="id_prispevku" value="<?php echo $result_zaznamy['ID'] ?>">
+                                                                   <?php if($user->isAdmin() || $_SESSION['user_id']==$result_zaznamy['fromUser']){ ?>
+                                                                        <a type="button" class="btn"  title="Vymazať príspevok" data-toggle="modal" data-target="#deleteModal" name="forDelete"   onclick="location.href='index.php?modul=spravovat-prispevky/zaznamy&id_prispevku=<?php echo $result_zaznamy['ID'] ?>';" ><i class="fa fa-trash"></i></a>
+                                                                    <?php } $query="SELECT path FROM slides WHERE ID = '".$result_zaznamy['ID']."'";
+        $apply=mysqli_query($connect,$query);
+        $result=mysqli_fetch_array($apply);
+        $file=$result['path'];?>
+                                                              
+                                                             
+                                                                    <a href="<?php echo $file; ?>" download class="btn" title="Download"><i class="fa fa-download" aria-hidden="true"></i></a>
+                                                                    <a href="<?php echo $file; ?>" class="btn" title="Náhľad" target="_blank"><i class="fa fa-desktop" aria-hidden="true"></i></a>
                                                             </form>
-                                                            <?php } ?>
                                                         </td>
                                                        
                                                     </tr>
