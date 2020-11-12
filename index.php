@@ -128,8 +128,8 @@ if(empty($modul)){$modul="mod_404.php";}
                     <!-- BEGIN LOGO -->
                     <div class="page-logo">
                         <a href="">
-                            <img src="images/smd-zaznamy-logo.png" alt="logo" class="logo-default"  /> </a>
-                        <div class="menu-toggler sidebar-toggler">
+                            <img src="images/Logo.png" alt="logo" class="logo-default" style="margin-top:0%; margin-left:-5%; padding-right:20px;"/> </a>
+                        <div class="menu-toggler sidebar-toggler" style="margin-left:-25%;">
                             <span></span>
                         </div>
                     </div>

@@ -35,22 +35,22 @@
                                                         </ol>
                                                         <div class="carousel-inner">
                                                            <div class="carousel-item active">
-                                                              <img class="d-block w-100" src="images/navod1.png" alt="slider_img" style="width:1500px; height:850px; margin-left:3% !important;">
+                                                              <img class="d-block w-100" src="imgs/navod1.png" alt="slider_img" style="width:1500px; height:850px; margin-left:3% !important;">
                                                            </div>
                                                            <div class="carousel-item">
-                                                              <img class="d-block w-100" src="images/navod2.png" alt="slider_img" style="width:1500px; height:850px; margin-left:3% !important;">
+                                                              <img class="d-block w-100" src="imgs/navod2.png" alt="slider_img" style="width:1500px; height:850px; margin-left:3% !important;">
                                                            </div>
                                                            <div class="carousel-item">
-                                                              <img class="d-block w-100" src="images/navod3.png" alt="slider_img" style="width:1500px; height:850px; margin-left:3% !important;">
+                                                              <img class="d-block w-100" src="imgs/navod3.png" alt="slider_img" style="width:1500px; height:850px; margin-left:3% !important;">
                                                            </div>
                                                            <div class="carousel-item">
-                                                              <img class="d-block w-100" src="images/navod4.png" alt="slider_img" style="width:1500px; height:850px; margin-left:3% !important;">
+                                                              <img class="d-block w-100" src="imgs/navod4.png" alt="slider_img" style="width:1500px; height:850px; margin-left:3% !important;">
                                                            </div>
                                                            <div class="carousel-item">
-                                                              <img class="d-block w-100" src="images/navod5.png" alt="slider_img" style="width:1500px; height:850px; margin-left:3% !important;">
+                                                              <img class="d-block w-100" src="imgs/navod5.png" alt="slider_img" style="width:1500px; height:850px; margin-left:3% !important;">
                                                            </div>
                                                            <div class="carousel-item">
-                                                              <img class="d-block w-100" src="images/navod6.png" alt="slider_img" style="width:1500px; height:850px; margin-left:3% !important;">
+                                                              <img class="d-block w-100" src="imgs/navod6.png" alt="slider_img" style="width:1500px; height:850px; margin-left:3% !important;">
                                                            </div>
                                                         </div>
                                                         <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">

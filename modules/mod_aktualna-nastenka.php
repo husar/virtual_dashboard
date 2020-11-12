@@ -1,6 +1,6 @@
     
   
-    <link rel="stylesheet" href="css/animate.css">
+   
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
     
     <link rel="stylesheet" href="css/style.css?v=<?php echo time(); ?>">
@@ -30,7 +30,7 @@
 								        $result_zaznamy=mysqli_fetch_array($apply_zaznamy);
                                         $pocetAktivnych=$result_zaznamy['pocet_aktivnych'];
                                         
-                                        if($pocetAktivnych>=0){ 
+                                        if($pocetAktivnych>0){ 
                                             $numberOfContribution=1;
                                             ?>
                                             <section class="slide_show">
