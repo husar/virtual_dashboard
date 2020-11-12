@@ -38,7 +38,7 @@ function insertContribution(){
     if(isset($_POST['insert'])){
         
 	    $autor=$_SESSION['user_id'];
-        $from=date('Y-m-d');
+        $from="'".date('Y-m-d')."'";
         $to="NULL";
         $errors= array();
         $imageUploaded=false;
@@ -48,7 +48,7 @@ function insertContribution(){
         $file_type=$_FILES['image']['type'];
         $imageName=explode('.',$_FILES['image']['name']);
         $file_ext=strtolower(end($imageName));
-        $target_file="slides/".$imageName[0];
+        $target_file="slides/".url_slug($imageName[0]);
         $indexOfNamePart=1;
         
         
@@ -98,7 +98,7 @@ function insertContribution(){
                 }
             }
             
-           $query_insert="INSERT INTO slides(path,fromUser,fromDate,toDate,uploadDate,duration)                          VALUES('".$target_file."','".$autor."','".$from."',".$to.",CURDATE(),'".($_POST['duration']*1000)."')";
+          $query_insert="INSERT INTO slides(path,fromUser,fromDate,toDate,uploadDate,duration)                          VALUES('".$target_file."','".$autor."',".$from.",".$to.",CURDATE(),'".($_POST['duration']*1000)."')";
 	        $apply_insert=mysqli_query($connect,$query_insert);
     
             if($apply_insert){
