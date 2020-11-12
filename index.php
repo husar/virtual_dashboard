@@ -80,7 +80,7 @@ if(empty($modul)){$modul="mod_404.php";}
 
     <head>
         <meta charset="utf-8" />
-        <title>SMD ZÁZNAMY</title>
+        <title>Virtuálna nástenka</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
      
@@ -426,7 +426,7 @@ else{
         <!-- BEGIN LOGO -->
         <div class="logo">
             <a href="index.html">
-                <img src="images/smd-zaznamy-logo-big.png" alt=""  style="height:40px"/> </a>
+                <img src="images/Logo-main.png" alt=""  style="width:304px; height:46px;"/> </a>
         </div>
         <!-- END LOGO -->
         <!-- BEGIN LOGIN -->
