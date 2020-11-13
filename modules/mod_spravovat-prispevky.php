@@ -5,28 +5,7 @@
     deleteContribution();
     updateContribution();
     
-    if(isset($_POST['download'])){
-        
-        $query="SELECT path FROM slides WHERE ID = '".$_POST['id_prispevku']."'";
-        $apply=mysqli_query($connect,$query);
-        $result=mysqli_fetch_array($apply);
-        $file=$result['path'];?>
-        
-
-
-        
-        <!--/*if (file_exists($file)) {
-            header('Content-Description: File Transfer');
-            header('Content-Type: application/octet-stream');
-            header('Content-Disposition: attachment; filename="'.basename($file).'"');
-            header('Expires: 0');
-            header('Cache-Control: must-revalidate');
-            header('Pragma: public');
-            header('Content-Length: ' . filesize($file));
-            readfile($file);
-            exit;
-        }*/-->
-   <?php }
+    
 
 
 ?>
@@ -38,7 +17,7 @@
                                       
                                     </div>
                                     <div class="portlet-body form">
-                                        <form class="form-horizontal" role="form" method="get">
+                                        <form class="form-horizontal" role="form" method="get" enctype="multipart/form-data" accept-charset="utf-8">
                                             <div class="form-body">
                                                 <div class="form-group">
 												     <input type="hidden" name="modul" value="spravovat-prispevky/zaznamy">	
@@ -148,7 +127,12 @@
                                                 </thead>
                                                 <tbody>
 												<?php
-                                                                                            
+                                                $page = (int) (!isset($parameter[2]) ? 1 : $parameter[2]);
+                                                $limit = 10;
+                                                $url="?authorName=".$_GET['authorName']."&authorSurname=".$_GET['authorSurname']."&osobne_cislo=".$_GET['osobne_cislo']."&status=".$_GET['status']."&sorting=".$_GET['sorting']."&srt=".$_GET['srt']."&modul=spravovat-prispevky/zaznamy/";
+                                                $startpoint = ($page * $limit) - $limit;
+                                                $c=$connect;    
+                                            
 												$searchQuery="SELECT * FROM slides ";          
                                             
                                                 if(!empty($possiblesAuthors)){
@@ -180,21 +164,25 @@
                                                     $conditions[]="fromUser LIKE '%".$_GET['osobne_cislo']."%'";
                                                 }
                                             
-                                                $sql=$searchQuery;    
+                                                $sql=$searchQuery;  
+                                                $sqlForPaging="";
                                             
                                                 if(count($conditions)>0){
-                                                    $sql.="WHERE ".implode(' AND ',$conditions);    
+                                                    $sql.="WHERE ".implode(' AND ',$conditions);
+                                                    $sqlForPaging.="WHERE ".implode(' AND ',$conditions); 
                                                 }
                                             
                                                 if(!empty($_GET['sorting'])){
                                                     $sql.="ORDER BY ".$_GET['sorting'];
+                                                    $sqlForPaging.="ORDER BY ".$_GET['sorting'];
                                                 }
                                             
                                                 if($_GET['srt']=='zostupne'){
                                                     $sql.=" DESC";
+                                                    $sqlForPaging.=" DESC";
                                                 }
                                                 
-                                                                                            
+                                                $sql.="LIMIT $startpoint, $limit";     
                                             
 												$apply_zaznamy=mysqli_query($connect,$sql);
 												while($result_zaznamy=mysqli_fetch_array($apply_zaznamy)){
@@ -272,7 +260,7 @@
 													
                                                 </tbody>
                                             </table>
-											<?php	echo "<center>".pagination($statement,$limit,$page,$url,$c)."</center>"; ?>
+											<?php	echo "<center>".pagination_search("slides ".$sqlForPaging,$limit,$page,$url,$c)."</center>"; ?>
 															
                                         </div>
 								
@@ -302,7 +290,13 @@
                                                 </thead>
                                                 <tbody>
 												<?php
-												$query_zaznamy="SELECT * FROM slides ";                    
+                                                $page = (int) (!isset($parameter[2]) ? 1 : $parameter[2]);
+                                                $limit = 10;
+                                                $url="?modul=spravovat-prispevky/zaznamy";
+                                                $startpoint = ($page * $limit) - $limit;
+                                                $c=$connect;
+                                            
+												$query_zaznamy="SELECT * FROM slides ORDER BY id DESC LIMIT $startpoint, $limit";                    
 												$apply_zaznamy=mysqli_query($connect,$query_zaznamy);
 												while($result_zaznamy=mysqli_fetch_array($apply_zaznamy)){
                                                 $query_author="SELECT meno, priezvisko FROM employees WHERE osobne_cislo = '".$result_zaznamy['fromUser']."'";
@@ -377,7 +371,7 @@
 													
                                                 </tbody>
                                             </table>
-											<?php	echo "<center>".pagination($statement,$limit,$page,$url,$c)."</center>"; ?>
+											<?php	echo "<center>".pagination("slides",$limit,$page,$url,$c)."</center>"; ?>
 															
                                         </div>
 								
