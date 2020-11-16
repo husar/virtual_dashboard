@@ -1,6 +1,7 @@
 
 <?php include "../connect.ini.php"; ?>
 
+
 <!DOCTYPE html>
 <html>
    <head>
@@ -17,7 +18,7 @@
   
       
    </head>
-   <body>
+   <body onload="refresh()">
       <div class="portlet-body">
                                     <?php
                                         $query_zaznamy="SELECT COUNT(ID) as pocet_aktivnych FROM slides WHERE (fromDate IS NULL AND toDate IS NULL) OR (fromDate<=CURDATE() AND toDate IS NULL) OR (fromDate IS NULL AND toDate>=CURDATE()) OR (fromDate<=CURDATE() AND toDate>=CURDATE())";
@@ -73,4 +74,35 @@
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/jquery.waypoints.min.js"></script>
     <script src="../js/script.js"></script>
+    
+    <script>
+function refresh(){
+
+        var id="text";
+        var http = new XMLHttpRequest();
+        var url = "http://localhost/virtual_dashboard/TV/functions/need_refresh.php";
+        var params="article_id="+id;
+
+        http.open("POST", url, true);
+
+        //Send the proper header information along with the request
+        http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        http.onreadystatechange = function() {//Call a function when the state changes.
+
+            if(http.readyState == 4 && http.status == 200) {
+                if(http.responseText=="yes"){
+                    location.reload();
+                }
+                setTimeout(function(){refresh();}, 3000);
+            }
+
+        }
+
+        http.send(params);
+
+}
+
+</script>
+    
 </html>

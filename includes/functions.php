@@ -98,7 +98,7 @@ function insertContribution(){
                 }
             }
             
-          $query_insert="INSERT INTO slides(path,fromUser,fromDate,toDate,uploadDate,duration)                          VALUES('".$target_file."','".$autor."',".$from.",".$to.",CURDATE(),'".($_POST['duration']*1000)."')";
+          $query_insert="INSERT INTO slides(path,fromUser,fromDate,toDate,uploadDate,duration,refresh)                          VALUES('".$target_file."','".$autor."',".$from.",".$to.",CURDATE(),'".($_POST['duration']*1000)."','1')";
 	        $apply_insert=mysqli_query($connect,$query_insert);
     
             if($apply_insert){
@@ -152,6 +152,9 @@ function deleteContribution(){
         $apply_zaznamy=mysqli_query($connect,$query);
         $result_zaznamy=mysqli_fetch_array($apply_zaznamy);
         $fileDeleted = unlink($result_zaznamy['path']);
+        
+        $query = "UPDATE slides SET refresh='1'";
+        mysqli_query($connect,$query);
         
         $query = "DELETE FROM slides WHERE ID = '".$_POST['id_prispevku']."'";
         $result = mysqli_query($connect,$query);

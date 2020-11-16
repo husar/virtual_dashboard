@@ -66,8 +66,13 @@
                                         </form>
                                     </div>
                                 </div>
-                                
-                                                                
+       <?php                         
+               $query="SELECT ID FROM slides WHERE fromDate <= 'CURDATE()' AND refresh='1'";
+    $apply=mysqli_query($connect,$query);
+
+    $result=mysqli_fetch_array($apply);  
+                                                                    if(!empty($result)){
+    print_r($result);}?>                                            
 
  <div class="portlet box blue">
                                     <div class="portlet-title">
@@ -304,6 +309,7 @@
                                                 $result_author=mysqli_fetch_array($apply_author);
                                                 ?>
 												<tr>
+                                                       
                                                         
 														<td> <?php echo $result_zaznamy['ID']; ?></td>
 														<td> <?php echo extractNameOfImage($result_zaznamy['path']); ?></td>
