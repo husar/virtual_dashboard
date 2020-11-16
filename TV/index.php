@@ -80,7 +80,7 @@ function refresh(){
 
         var id="text";
         var http = new XMLHttpRequest();
-        var url = "http://localhost/virtual_dashboard/TV/functions/need_refresh.php";
+        var url = "http://localhost/virtual_dashboard/TV/functions/need_refresh.php";";
         var params="article_id="+id;
 
         http.open("POST", url, true);

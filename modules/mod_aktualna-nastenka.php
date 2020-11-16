@@ -50,13 +50,13 @@
                                                                 $result_zaznamy=mysqli_fetch_array($apply_zaznamy);
                                                             ?>
                                                            <div class="carousel-item active" data-interval="<?php echo $result_zaznamy['duration'] ?>" >
-                                                              <img class="d-block w-100" src="<?php echo $result_zaznamy['path']; ?>" alt="slider_img" style="width:1350px !important; height:800px ; margin-left:2% !important;">
+                                                              <img class="d-block w-100" src="<?php echo $result_zaznamy['path']; ?>" alt="slider_img" style="width:1500px !important; height:800px ; margin-left:2% !important;">
                                                            </div>
                                                            <?php 
                                                             while($result_zaznamy=mysqli_fetch_array($apply_zaznamy)){ 
                                                             ?>
                                                            <div class="carousel-item" data-interval="<?php echo $result_zaznamy['duration'] ?>">
-                                                              <img class="d-block w-100" src="<?php echo $result_zaznamy['path']; ?>" alt="slider_img" style="width:1350px !important; height:800px; margin-left:2% !important;">
+                                                              <img class="d-block w-100" src="<?php echo $result_zaznamy['path']; ?>" alt="slider_img" style="width:1500px !important; height:800px; margin-left:2% !important;">
                                                            </div>
                                                            <?php } ?>
                                                         </div>
